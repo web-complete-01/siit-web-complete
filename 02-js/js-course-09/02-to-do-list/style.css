@@ -1,0 +1,8 @@
+#to-do-list li {
+    color: red;
+    cursor: pointer;
+}
+
+#to-do-list li.done {
+    color: darkolivegreen;
+}
