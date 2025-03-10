@@ -1,0 +1,36 @@
+section{
+    margin-bottom: 3rem;
+}
+
+.scoreboard{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.score-box {
+    border: 1px solid grey;
+    width: 20rem;
+    padding: 1rem;
+    text-align: center;
+}
+
+.score-box h3 {
+    margin-top: 0;
+}
+
+.avatar {
+    height: 5rem;
+    aspect-ratio: 1;
+}
+
+.player-score{
+    margin-bottom: 1rem;
+    border-bottom: 1px solid rgb(184, 184, 184);
+    padding-bottom: 1rem;
+}
+
+.score-display{
+    font-weight: bold;    
+    font-size: 1.5rem;
+}
