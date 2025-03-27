@@ -1,0 +1,70 @@
+{
+  "users": [
+    {
+      "id": "c43e",
+      "name": "Adi",
+      "password": "secret"
+    },
+    {
+      "id": "20d9",
+      "name": "ion",
+      "password": "tionion"
+    },
+    {
+      "id": "d394",
+      "name": "aaaa",
+      "password": "bbbbb"
+    },
+    {
+      "id": "a014",
+      "user-name": "Danel",
+      "user-password": "kdjhfkjdshkjf"
+    },
+    {
+      "id": "4dd5",
+      "user-name": "Petrica",
+      "user-password": "87436487",
+      "user-location": "Turda"
+    },
+    {
+      "id": "6fa3",
+      "user-name": "Marcela",
+      "user-password": "7623we",
+      "user-location": "Bran",
+      "user-color": "#c52b2b"
+    },
+    {
+      "id": "a6a6",
+      "user-name": "Ana",
+      "user-password": "e87498347",
+      "user-location": "Cluj",
+      "user-color": "#0a7b4a"
+    },
+    {
+      "id": "7c49",
+      "user-name": "Ana",
+      "user-password": "098453098",
+      "user-location": "Cluj",
+      "user-color": "#10565b",
+      "user-age": "25"
+    },
+    {
+      "id": "6a9b",
+      "user-name": "Ada",
+      "user-email": "test@test.com",
+      "user-password": "",
+      "user-location": "",
+      "user-color": "#000000",
+      "user-age": ""
+    },
+    {
+      "id": "6c49",
+      "user-name": "Ada",
+      "user-email": "test@test.com",
+      "user-password": "sfdsfsdd",
+      "user-location": "",
+      "user-color": "#000000",
+      "user-age": ""
+    }
+  ]
+}
