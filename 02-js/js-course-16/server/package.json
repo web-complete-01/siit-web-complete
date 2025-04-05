@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "server": "npx json-server db.json --port 3000 --middleware ./node_modules/json-server-auth --routes routes.json",
+    "server": "npx json-server db.json --port 3000 --middlewares ./node_modules/json-server-auth --routes routes.json",
     "json-server-auth": "npx json-server-auth db.json -r routes.json"
   },
   "keywords": [],
@@ -14,5 +14,8 @@
   "dependencies": {
     "json-server": "^0.17.4",
     "json-server-auth": "^2.1.0"
+  },
+  "overrides": {
+    "jsonwebtoken": "^9.0.0"
   }
 }
