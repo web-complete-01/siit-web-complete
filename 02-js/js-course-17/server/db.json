@@ -1,0 +1,28 @@
+{
+  "users": [
+    {
+      "email": "testa@test.com",
+      "password": "$2a$10$d8N4oVEsLhv63SF0xsTcMOW3/PxSNcXoovwAycAccr6p5phaP8zP2",
+      "name": "Cristel",
+      "id": 1
+    },
+    {
+      "email": "testb@test.com",
+      "password": "$2a$10$JYcxtFtnYpUpULX8RAoxxO/UwRXpBji.ZcMyJJvP843E93VASrQJ.",
+      "name": "Bogdanel",
+      "id": 2
+    }
+  ],
+  "messages": [
+    {
+      "message": "This is Cristel",
+      "userId": 1,
+      "id": 1
+    },
+    {
+      "message": "Bogdanel changed this again!",
+      "userId": 2,
+      "id": 2
+    }
+  ]
+}
