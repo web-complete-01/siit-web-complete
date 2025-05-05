@@ -1,0 +1,22 @@
+.dice-set-container {
+    display: flex;
+}
+
+.number-dice-container{
+    border: 1px solid grey;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    margin: .5rem
+}
+
+.dice-container{
+    width: 5rem;
+    aspect-ratio: 1;
+}
+
+.dice-container img {
+    width: 100%;
+}
