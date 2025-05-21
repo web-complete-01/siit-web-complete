@@ -1,10 +1,15 @@
-let a: boolean = true;
-let b: number = 1;
-let c: string = "Paul";
-let d: null = null;
-let e: undefined = undefined;
-let f: symbol = Symbol('Paul');
-let g: bigint = 2n;
+import { App } from './rockPaperScissors';
 
-console.log(a, b, c, d, e, f, g);
+// const obj = { 
+//   test: 'ceva',
+//   App: 'altceva',
+// };
 
+// const { test, App } = obj;
+
+const appContainer = document.querySelector('#app');
+
+// type guard
+if(appContainer) {
+  appContainer.append(App);
+}
