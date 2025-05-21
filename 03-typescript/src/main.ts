@@ -1,15 +1,11 @@
 import { App } from './rockPaperScissors';
 
-// const obj = { 
-//   test: 'ceva',
-//   App: 'altceva',
-// };
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
-// const { test, App } = obj;
-
-const appContainer = document.querySelector('#app');
+const appContainer = document.querySelector<HTMLDivElement>('#app');
 
 // type guard
 if(appContainer) {
   appContainer.append(App);
 }
+ 
