@@ -7,50 +7,132 @@ function degKtoC(degK: number) {
   return (degK - 273.15).toFixed(1);
 }
 
-export function Weather() {
-  const [weatherData, setWeatherData] = useState<null | WeatherData>(null);
-  const [searchValues, setSearchValues] = useState({
-    city: 'Brasov',
-    countryCode: 'RO',
-  });
-
-  useEffect(() => {
-    async function getWeatherData() {
-      const data = await fetch(`${apiUrl}&q=${searchValues.city},${searchValues.countryCode}`).then((res) => res.json());
-      setWeatherData(data);
+async function handleFetchResponse(res: Response) {
+  if (!res.ok) {
+    if (res.status === 404) {
+      const { message } = await res.json();
+      throw new Error(message);
     }
 
-    getWeatherData();
-  }, [searchValues]);
+    throw new Error('Please try again later');
+  }
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  return res.json();
+}
+
+function getWeatherDataByLocation({
+  city,
+  countryCode,
+}: {
+  city: string;
+  countryCode: string;
+}): Promise<WeatherData> {
+  return fetch(`${apiUrl}&q=${city},${countryCode}`).then(handleFetchResponse);
+}
+
+function getWeatherDataByCoords(
+  coords: GeolocationCoordinates
+): Promise<WeatherData> {
+  return fetch(`${apiUrl}&lat=${coords.latitude}&lon=${coords.longitude}`).then(
+    handleFetchResponse
+  );
+}
+
+const initialSearchValues = {
+  city: 'Brasov',
+  countryCode: 'RO',
+};
+
+export function Weather() {
+  const [weatherData, setWeatherData] = useState<null | WeatherData>(null);
+  const [coords, setCoords] = useState<null | GeolocationCoordinates>(null);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(
+      handleLocationSuccess,
+      console.warn
+    );
+
+    function handleLocationSuccess({
+      coords,
+    }: {
+      coords: GeolocationCoordinates;
+    }) {
+      setCoords(coords);
+    }
+  }, []);
+
+  useEffect(() => {
+    async function load() {
+      let data;
+      try {
+        if (coords) {
+          data = await getWeatherDataByCoords(coords);
+        } else {
+          data = await getWeatherDataByLocation(initialSearchValues);
+        }
+      } catch (e) {
+        if (e instanceof Error) {
+          setError(e.message);
+        }
+
+        console.warn(e);
+      }
+
+      if (data) {
+        setWeatherData(data);
+      }
+    }
+
+    load();
+  }, [coords]);
+
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const data = new FormData(e.target as HTMLFormElement);
     const city = data.get('city');
     const countryCode = data.get('countryCode');
 
-    if(typeof city !== 'string' || typeof countryCode !== 'string') {
+    if (typeof city !== 'string' || typeof countryCode !== 'string') {
       return;
     }
+    try {
+      const data = await getWeatherDataByLocation({
+        city,
+        countryCode,
+      });
 
-    setSearchValues({
-      city,
-      countryCode
-    });
+      setWeatherData(data);
+    } catch (e) {
+      if (e instanceof Error) {
+        setError(e.message);
+      }
+    }
   }
 
   return (
     <>
       <h1>Weather</h1>
+      {error && <p style={{ color: '#c00' }}>{error}</p>}
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="city">City</label>
-          <input type="text" id="city" name="city" defaultValue={searchValues.city} />
+          <input
+            type="text"
+            id="city"
+            name="city"
+            defaultValue={initialSearchValues.city}
+          />
         </div>
 
         <div>
           <label htmlFor="countryCode">Country</label>
-          <select id="countryCode" name="countryCode" defaultValue={searchValues.countryCode}>
+          <select
+            id="countryCode"
+            name="countryCode"
+            defaultValue={initialSearchValues.countryCode}
+          >
             <option value="US">USA</option>
             <option value="RO">Romania</option>
             <option value="DE">Germany</option>
