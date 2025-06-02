@@ -1,0 +1,18 @@
+:root {
+  --text-normal: #333;
+  --text-inverted: #fff;
+  --bg-dark: #333;
+
+  font-size: 62.5%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+
+  font-family: Verdana, sans-serif;
+  font-size: 1.6rem;
+}
