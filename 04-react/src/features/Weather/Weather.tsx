@@ -45,14 +45,14 @@ export function Weather() {
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="city">City</label>
-          <input type="text" id="city" name="city" />
+          <input type="text" id="city" name="city" defaultValue={searchValues.city} />
         </div>
 
         <div>
           <label htmlFor="countryCode">Country</label>
-          <select id="countryCode" name="countryCode">
-            <option value="RO">Romania</option>
+          <select id="countryCode" name="countryCode" defaultValue={searchValues.countryCode}>
             <option value="US">USA</option>
+            <option value="RO">Romania</option>
             <option value="DE">Germany</option>
           </select>
         </div>
