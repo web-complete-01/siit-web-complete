@@ -2,7 +2,10 @@
   --text-normal: #333;
   --text-inverted: #fff;
   --bg-dark: #333;
-
+  --primary-color: #bada55;
+  --primary-accent-color: #739407;
+  --danger-color: rgb(240, 127, 27);
+  --danger-accent-color: rgb(178, 89, 11);
   font-size: 62.5%;
 }
 

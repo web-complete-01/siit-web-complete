@@ -25,6 +25,7 @@
 
 .mainMenu {
   display: flex;
+  flex-grow: 1;
   gap: .3rem;
 
   list-style: none;
@@ -34,4 +35,9 @@
 
 .highlight {
   background-color: yellow;
+}
+
+.pushRight {
+  /* justify-self: end; */
+  margin-left: auto;
 }

@@ -13,6 +13,8 @@ export function Nav() {
         <li><BrandNavLink to="/">Home</BrandNavLink></li>
         <li><BrandNavLink to="counter">Counter</BrandNavLink></li>
         <li><BrandNavLink to="weather">Weather</BrandNavLink></li>
+        <li className={styles.pushRight}><BrandNavLink to="login">Login</BrandNavLink></li>
+        <li><BrandNavLink to="register">Register</BrandNavLink></li>
       </menu>
 
     </nav>
