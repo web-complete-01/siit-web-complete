@@ -1,3 +1,25 @@
 {
-  "users": []
+  "users": [
+    {
+      "email": "p@p.com",
+      "password": "$2a$10$9JSR690n93BybGzzYn339ubjjHvcAHsAH//WMgLPZSJ4pwMarnRJG",
+      "firstName": "Paul",
+      "lastName": "Negoescu",
+      "id": 1
+    },
+    {
+      "email": "a@a.com",
+      "password": "$2a$10$tBKxLxzfS7UPZYmrSC45F.G.JW4ZiutZzyyfBhDdF1NwYsf.x14w2",
+      "firstName": "Ion",
+      "lastName": "Ghindea",
+      "id": 2
+    },
+    {
+      "email": "b@b.com",
+      "password": "$2a$10$TnbkCusCgbPjo1XTC3GtAeK6DRoQPY.Q0HqwRINYFg1OvClQK8I16",
+      "firstName": "Andreea",
+      "lastName": "Gavenea",
+      "id": 3
+    }
+  ]
 }

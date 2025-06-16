@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { z, type ZodObject } from 'zod/v4';
+import { useAuthContext } from './AuthContext';
+import type { AuthResponse } from './types';
 
 const validationSchema = z
   .object({
@@ -34,31 +36,35 @@ type SchemaObject = z.infer<typeof validationSchema>;
 type ErrorObject = Record<keyof SchemaObject, string[]>;
 type Errors = Partial<ErrorObject>;
 
-
 const initialDefaultValues = {
-    email: '',
-    password: '',
-    retypePassword: '',
-    firstName: '',
-    lastName: '',
-  };
+  email: '',
+  password: '',
+  retypePassword: '',
+  firstName: '',
+  lastName: '',
+};
 
 export function Register() {
   const [errors, setErrors] = useState<null | Errors>(null);
   const [defaultValues, setDefaultValues] = useState(initialDefaultValues);
 
+  const { login } = useAuthContext();
+
   function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
-    if(!errors) {
+    if (!errors) {
       return;
     }
     const formValues = new FormData(e.target.form!);
-    const newErrors = validateForm(Object.fromEntries(formValues.entries()), validationSchema)
+    const newErrors = validateForm(
+      Object.fromEntries(formValues.entries()),
+      validationSchema
+    );
     // setErrors({...errors, [e.target.name]: null});
     setErrors(newErrors);
   }
 
-  async function handleRegister(data: FormData) {
-    const values = Object.fromEntries(data.entries());
+  async function handleRegister(formData: FormData) {
+    const values = Object.fromEntries(formData.entries());
     const errors = validateForm(values, validationSchema);
 
     if (errors) {
@@ -69,6 +75,18 @@ export function Register() {
 
     setErrors(null);
     setDefaultValues(initialDefaultValues);
+
+    delete values.retypePassword;
+
+    const data = await fetch('http://localhost:3000/register', {
+      method: 'POST',
+      body: JSON.stringify(values),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }).then((res) => res.json() as Promise<AuthResponse>);
+
+    login(data);
   }
 
   return (
@@ -104,7 +122,9 @@ export function Register() {
         defaultValue={defaultValues.retypePassword}
         onChange={handleInputChange}
       />
-      {errors?.retypePassword && <p className="fieldError">{errors.retypePassword[0]}</p>}
+      {errors?.retypePassword && (
+        <p className="fieldError">{errors.retypePassword[0]}</p>
+      )}
 
       <label htmlFor="firstName">First Name</label>
       <input

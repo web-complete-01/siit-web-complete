@@ -1,9 +1,18 @@
+import type { MouseEvent } from "react";
 import { Link } from "react-router";
 import { BrandNavLink } from "./BrandNavLink";
+import { useAuthContext } from "../../features/Auth/AuthContext";
 
 import styles from './Nav.module.css';
 
 export function Nav() {
+  const { user, logout } = useAuthContext();
+
+  function handleLogout(e: MouseEvent<HTMLAnchorElement>) {
+    e.preventDefault();
+    logout();
+  }
+
   return (
     <nav className={styles.siteNav}>
       <h1 className={styles.logo}>
@@ -13,8 +22,19 @@ export function Nav() {
         <li><BrandNavLink to="/">Home</BrandNavLink></li>
         <li><BrandNavLink to="counter">Counter</BrandNavLink></li>
         <li><BrandNavLink to="weather">Weather</BrandNavLink></li>
-        <li className={styles.pushRight}><BrandNavLink to="login">Login</BrandNavLink></li>
-        <li><BrandNavLink to="register">Register</BrandNavLink></li>
+
+        {!user && (
+          <>
+            <li className={styles.pushRight}><BrandNavLink to="login">Login</BrandNavLink></li>
+            <li><BrandNavLink to="register">Register</BrandNavLink></li>
+          </>
+        )}
+        {user && (
+          <li className={styles.pushRight}>
+            Welcome, {user.firstName}!{' '}
+            <a href="/" onClick={handleLogout}>Logout</a>
+          </li>
+        )}
       </menu>
 
     </nav>
