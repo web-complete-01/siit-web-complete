@@ -54,7 +54,13 @@
   }
 }
 
+.fieldError,
 .secondColumn {
   grid-column-start: 2;
   justify-self: start;
+}
+
+.fieldError {
+  color: #c00;
+  margin: 0;
 }
