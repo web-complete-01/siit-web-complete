@@ -22,6 +22,7 @@ export function Nav() {
         <li><BrandNavLink to="/">Home</BrandNavLink></li>
         <li><BrandNavLink to="counter">Counter</BrandNavLink></li>
         <li><BrandNavLink to="weather">Weather</BrandNavLink></li>
+        <li><BrandNavLink to="todos">Todos</BrandNavLink></li>
 
         {!user && (
           <>

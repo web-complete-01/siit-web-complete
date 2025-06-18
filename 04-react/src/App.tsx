@@ -5,6 +5,7 @@ import { Nav } from './components/Nav/Nav';
 import { Login, Register } from './features/Auth';
 import Parent from './features/Comms/Parent';
 import { AuthContextProvider } from './features/Auth/AuthContext';
+import { Todos } from './features/Todos';
 
 import './App.css';
 import './Forms.css';
@@ -22,6 +23,8 @@ export function App() {
           <Route path="comms" element={<Parent />} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
+          <Route path="todos" element={<Todos />} />
+          <Route path="*" element={<h1>404 Not Found</h1>} />
         </Routes>
       </BrowserRouter>
     </AuthContextProvider>

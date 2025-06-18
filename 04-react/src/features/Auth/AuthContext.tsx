@@ -21,7 +21,7 @@ export function AuthContextProvider({ children }: { children: ReactNode }) {
   });
 
   function login(value: AuthResponse) {
-    setAuth(value)
+    setAuth(value);
     localStorage.setItem(storageKey, JSON.stringify(value));
   }
 

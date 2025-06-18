@@ -21,5 +21,31 @@
       "lastName": "Gavenea",
       "id": 3
     }
+  ],
+  "todos": [
+    {
+      "id": 1,
+      "title": "Buy Milk",
+      "completed": true,
+      "userId": 1
+    },
+    {
+      "title": "Say good night",
+      "completed": true,
+      "userId": 1,
+      "id": 3
+    },
+    {
+      "title": "add new stuff",
+      "completed": false,
+      "userId": 1,
+      "id": 4
+    },
+    {
+      "title": "more stuff",
+      "completed": true,
+      "userId": 1,
+      "id": 5
+    }
   ]
 }

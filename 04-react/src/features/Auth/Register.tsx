@@ -1,7 +1,11 @@
 import { useState } from 'react';
-import { z, type ZodObject } from 'zod/v4';
+import { z } from 'zod/v4';
 import { useAuthContext } from './AuthContext';
 import type { AuthResponse } from './types';
+import { validateForm, type ValidationErrors } from '../../utils/validation';
+import { useRedirectWhenLoggedIn } from './useRedirectWhenLoggedIn';
+
+const apiUrl = import.meta.env.VITE_API_URL;
 
 const validationSchema = z
   .object({
@@ -20,22 +24,6 @@ const validationSchema = z
     path: ['retypePassword'],
   });
 
-function validateForm<T extends ZodObject>(
-  formValues: Record<string, FormDataEntryValue>,
-  validationSchema: T
-) {
-  const result = validationSchema.safeParse(formValues);
-
-  if (result.error) {
-    return z.flattenError(result.error).fieldErrors;
-  }
-  return null;
-}
-
-type SchemaObject = z.infer<typeof validationSchema>;
-type ErrorObject = Record<keyof SchemaObject, string[]>;
-type Errors = Partial<ErrorObject>;
-
 const initialDefaultValues = {
   email: '',
   password: '',
@@ -45,10 +33,15 @@ const initialDefaultValues = {
 };
 
 export function Register() {
-  const [errors, setErrors] = useState<null | Errors>(null);
+  const [errors, setErrors] = useState<null | ValidationErrors<typeof validationSchema>>(null);
   const [defaultValues, setDefaultValues] = useState(initialDefaultValues);
+  const willRedirect = useRedirectWhenLoggedIn();
 
   const { login } = useAuthContext();
+
+  if(willRedirect) {
+    return null;
+  }
 
   function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
     if (!errors) {
@@ -78,7 +71,7 @@ export function Register() {
 
     delete values.retypePassword;
 
-    const data = await fetch('http://localhost:3000/register', {
+    const data = await fetch(`${apiUrl}/register`, {
       method: 'POST',
       body: JSON.stringify(values),
       headers: {
