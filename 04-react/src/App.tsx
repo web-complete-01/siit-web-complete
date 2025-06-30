@@ -6,9 +6,11 @@ import { Login, Register } from './features/Auth';
 import Parent from './features/Comms/Parent';
 import { AuthContextProvider } from './features/Auth/AuthContext';
 import { Todos } from './features/Todos';
+import { List } from './features/Boardgames';
 
 import './App.css';
 import './Forms.css';
+import { Details } from './features/Boardgames/Details';
 
 // React Component
 export function App() {
@@ -24,6 +26,8 @@ export function App() {
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
           <Route path="todos" element={<Todos />} />
+          <Route path="boardgames" element={<List />} />
+          <Route path="boardgames/:id" element={<Details />} />
           <Route path="*" element={<h1>404 Not Found</h1>} />
         </Routes>
       </BrowserRouter>
