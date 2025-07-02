@@ -22,6 +22,10 @@
     text-decoration: none;
   }
 
+  & img {
+    max-width: 100%;
+  }
+
   & h2 {
     font-size: inherit;
     font-weight: normal;
@@ -34,4 +38,70 @@
 .pagination {
   display: flex;
   gap: 1rem;
+}
+
+
+.modal {
+  display: flex;
+  flex-direction: column;
+
+  background: white;
+  border-radius: 5px;
+  padding: 1rem;
+
+  & h2 {
+    margin: 0 0 .5rem;
+    margin-inline: -1rem;
+    padding:  0 1rem .6rem;
+
+    border-bottom: 1px solid var(--text-normal);
+  }
+
+  & footer {
+    display: flex;
+    gap: 1rem;
+    justify-content: end;
+
+    margin-top: 2rem;
+    margin-inline: -1rem;
+
+    padding: 1rem 1rem 0;
+
+    border-top: 1px solid var(--text-normal);
+  }
+}
+
+.modalOverlay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: rgba(0, 0, 0, .7);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+
+.addGameBtn {
+  --color: var(--primary-accent-color);
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+
+  padding: 0;
+
+  font-size: 6rem;
+  background: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  color: var(--color);
+  height: 6rem;
+
+  &:hover {
+    --color: var(--primary-color);
+  }
 }

@@ -7,10 +7,12 @@ import Parent from './features/Comms/Parent';
 import { AuthContextProvider } from './features/Auth/AuthContext';
 import { Todos } from './features/Todos';
 import { List } from './features/Boardgames';
+import { Details } from './features/Boardgames/Details';
+import { ToastContainer } from 'react-toastify';
+import { AddGame } from './features/Boardgames/AddGame';
 
 import './App.css';
 import './Forms.css';
-import { Details } from './features/Boardgames/Details';
 
 // React Component
 export function App() {
@@ -28,8 +30,10 @@ export function App() {
           <Route path="todos" element={<Todos />} />
           <Route path="boardgames" element={<List />} />
           <Route path="boardgames/:id" element={<Details />} />
+          <Route path="boardgames/add" element={<AddGame />} />
           <Route path="*" element={<h1>404 Not Found</h1>} />
         </Routes>
+        <ToastContainer />
       </BrowserRouter>
     </AuthContextProvider>
   );

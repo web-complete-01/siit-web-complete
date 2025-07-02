@@ -4,6 +4,7 @@ import { useAuthContext } from './AuthContext';
 import type { AuthResponse } from './types';
 import { validateForm, type ValidationErrors } from '../../utils/validation';
 import { useRedirectWhenLoggedIn } from './useRedirectWhenLoggedIn';
+import { toast } from 'react-toastify';
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -66,6 +67,7 @@ export function Login() {
     }).then((res) => res.json() as Promise<AuthResponse>);
 
     login(data);
+    toast.success('You have been logged in successfully!');
   }
 
   return (

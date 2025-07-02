@@ -3,12 +3,18 @@
   gap: 1rem;
   grid-template-columns: 150px 1fr;
 
-  & > label {
+  & label,
+  & .label {
     justify-self: end;
     align-self: center;
+
+    &.alignTop {
+      align-self: start;
+    }
   }
 
-  & > input:not([type=checkbox], [type=radio], [type=color]) {
+  & input:not([type=checkbox], [type=radio], [type=color]),
+  & textarea {
     justify-self: start;
 
     padding: .5rem;
@@ -22,6 +28,12 @@
       outline: 3px solid var(--primary-color);
       outline-offset: 2px;
     }
+  }
+
+  & fieldset {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 1rem;
   }
 }
 
@@ -42,6 +54,7 @@
   color: var(--text-color);
   cursor: pointer;
   font: inherit;
+  text-decoration: none;
 
   &:hover {
     --text-color: color-mix(in srgb, var(--primary-accent-color) 30%, #000);
@@ -51,6 +64,21 @@
   &:active {
     --bg-color: color-mix(in srgb, var(--primary-color) 85%, #000);
     box-shadow: inset 1px 1px 3px #0009;
+  }
+}
+
+.btnDestructive {
+  --text-color: var(--danger-accent-color);
+  --border-color: var(--danger-accent-color);
+  --bg-color: var(--danger-color);
+
+   &:hover {
+    --text-color: color-mix(in srgb, var(--danger-accent-color) 50%, #000);
+    --bg-color: color-mix(in srgb, var(--danger-color) 95%, #000);
+  }
+
+  &:active {
+    --bg-color: color-mix(in srgb, var(--danger-color) 85%, #000);
   }
 }
 
