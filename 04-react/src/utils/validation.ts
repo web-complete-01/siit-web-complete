@@ -5,7 +5,7 @@ export type ValidationErrors<SchemaType> = Partial<
 >;
 
 export function validateForm<T extends ZodObject>(
-  formValues: Record<string, FormDataEntryValue>,
+  formValues: Record<string, FormDataEntryValue | FormDataEntryValue[]>,
   validationSchema: T
 ) {
   const result = validationSchema.safeParse(formValues);

@@ -13,8 +13,7 @@
     }
   }
 
-  & input:not([type=checkbox], [type=radio], [type=color]),
-  & textarea {
+  & :is(input:not([type=checkbox], [type=radio], [type=color]), textarea, select) {
     justify-self: start;
 
     padding: .5rem;
@@ -32,8 +31,10 @@
 
   & fieldset {
     display: grid;
-    grid-template-columns: 120px 1fr;
+    justify-self: start;
+    grid-template-columns: 130px 1fr;
     gap: 1rem;
+    min-width: 50%; 
   }
 }
 
@@ -91,4 +92,20 @@
 .fieldError {
   color: #c00;
   margin: 0;
+}
+
+.fieldGroup {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.iconBtn {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+
+  & svg {
+    font-size: 2rem;
+  }
 }
