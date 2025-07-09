@@ -1,10 +1,11 @@
-import { Fragment, useState } from 'react';
+import { Fragment, useCallback, useEffect, useState } from 'react';
 import { HiMiniPlusCircle, HiMinusCircle } from 'react-icons/hi2';
 import { validateForm, type ValidationErrors } from '../../utils/validation';
 import { z } from 'zod/v4';
 import { useAuthContext } from '../Auth/AuthContext';
 import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
+import type { Boardgame } from './types';
 
 const apiUrl = import.meta.env.VITE_API_URL;
 const maxAge = 120;
@@ -66,21 +67,40 @@ const initialDefaultValues: DefaultValues = {
   minAge: '',
 };
 
-export function AddGame() {
+export function EditGame() {
+  const [game, setGame] = useState<null | Boardgame>(null);
   const [alternateNames, setAlternateNames] = useState<number[]>([]);
   const [errors, setErrors] = useState<null | ValidationErrors<
     typeof validationSchema
   >>(null);
   const [defaultValues, setDefaultValues] = useState(initialDefaultValues);
 
-  const {user, accessToken} = useAuthContext();
+  const { accessToken } = useAuthContext();
   const navigate = useNavigate();
+  const { id } = useParams();
 
-  function addAlternateNameField() {
+  const addAlternateNameField = useCallback(() => {
     const key = Math.random();
 
-    setAlternateNames([...alternateNames, key]);
-  }
+    setAlternateNames((oldNames) => [...oldNames, key]);
+  }, []);
+
+  useEffect(() => {
+    fetch(`${apiUrl}/boardgames/${id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setGame(data);
+        for(let i = 0;  i < data.alternateNames.length; i++) {
+          setAlternateNames((oldNames) => {
+            if(oldNames.length >= data.alternateNames.length) {
+              return oldNames;
+            }
+            return [...oldNames, data.alternateNames[i]]
+        });
+        }
+        setDefaultValues(data);
+      });
+  }, [id]);
 
   function handleInputChange(
     e:
@@ -103,12 +123,13 @@ export function AddGame() {
     setErrors(newErrors);
   }
 
-  async function handleAddGame(formData: FormData) {
+  async function handleUpdateGame(formData: FormData) {
+    if(!game) return;
     const values: Record<string, FormDataEntryValue | FormDataEntryValue[]> =
       Object.fromEntries(formData.entries());
     values.alternateNames = formData.getAll('alternateNames');
     const errors = validateForm(values, validationSchema);
-console.log(values);
+    console.log(values);
 
     if (errors) {
       setErrors(errors);
@@ -117,26 +138,28 @@ console.log(values);
     }
 
     setErrors(null);
-    setDefaultValues(initialDefaultValues);
+    setDefaultValues(game as unknown as DefaultValues);
 
-    values.userId = user!.id as unknown as string;
-
-    await fetch(`${apiUrl}/boardgames`, {
-      method: 'POST',
+    await fetch(`${apiUrl}/boardgames/${id}`, {
+      method: 'PATCH',
       body: JSON.stringify(values),
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${accessToken}`,
-      }
+        Authorization: `Bearer ${accessToken}`,
+      },
     });
 
-    toast.success(`Successfully added a new game: "${values.name}"!`);
-    navigate('/boardgames');
+    toast.success(`Successfully updated the game: "${values.name}"!`);
+    navigate(-1);
+  }
+
+  if (!game) {
+    return <strong>Loading ...</strong>;
   }
 
   return (
-    <form className="brandForm" action={handleAddGame}>
-      <h1 className="fullWidth">Add Game</h1>
+    <form className="brandForm" action={handleUpdateGame}>
+      <h1 className="fullWidth">Edit "{game.name}"</h1>
 
       <label htmlFor="name">Name</label>
       <input
@@ -243,15 +266,19 @@ console.log(values);
                   type="button"
                   className="btn btnDestructive iconBtn"
                   onClick={(e) => {
-                    setDefaultValues((oldValues) =>  {
-                      oldValues.alternateNames = oldValues.alternateNames.toSpliced(i, 1);
-                      return {...oldValues};
+                    setDefaultValues((oldValues) => {
+                      oldValues.alternateNames =
+                        oldValues.alternateNames.toSpliced(i, 1);
+                      return { ...oldValues };
                     });
                     setAlternateNames((oldNames) =>
                       oldNames.filter((k) => k !== key)
                     );
                     // The next line is required for the field to pass validation as it is only removed on the next render
-                    e.currentTarget.closest('[data-field-group]')!.querySelector('input')!.value='Dummy value to pass validation';
+                    e.currentTarget
+                      .closest('[data-field-group]')!
+                      .querySelector('input')!.value =
+                      'Dummy value to pass validation';
                     handleInputChange(e);
                   }}
                 >
@@ -278,7 +305,7 @@ console.log(values);
       <select
         id="minAge"
         name="minAge"
-        // the key is necessary for react to pick up on the defaultValue change, otherwise it just ignores the change and does not apply a default value. 
+        // the key is necessary for react to pick up on the defaultValue change, otherwise it just ignores the change and does not apply a default value.
         key={`minAge${defaultValues.minAge}`}
         defaultValue={defaultValues.minAge}
         onChange={handleInputChange}

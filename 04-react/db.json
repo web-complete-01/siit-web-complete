@@ -53,7 +53,7 @@
       "id": 1,
       "bggId": 224517,
       "userId": 1,
-      "name": "Brass: Birmingham",
+      "name": "Brass: Birmingham edited",
       "thumbnail": "https://cf.geekdo-images.com/x3zxjr-Vw5iU4yDPg70Jgw__thumb/img/o18rjEemoWaVru9Y2TyPwuIaRfE=/fit-in/200x150/filters:strip_icc()/pic3490053.jpg",
       "image": "https://cf.geekdo-images.com/x3zxjr-Vw5iU4yDPg70Jgw__original/img/FpyxH41Y6_ROoePAilPNEhXnzO8=/0x0/filters:format(jpeg)/pic3490053.jpg",
       "alternateNames": [
@@ -76,7 +76,7 @@
         "min": 60,
         "max": 120
       },
-      "minAge": 14,
+      "minAge": "14",
       "yearpublished": 2018,
       "rank": 1,
       "bayesaverage": 8.4168,
@@ -84,7 +84,11 @@
       "usersrated": 44416,
       "otherRanks": {
         "strategygames": 1
-      }
+      },
+      "min": "1",
+      "max": "2",
+      "recommended": "3",
+      "best": "2"
     },
     {
       "id": 2,
@@ -10762,6 +10766,39 @@
       "name": "Test Edited",
       "bggId": 1234,
       "id": 286
+    },
+    {
+      "name": "Test edited",
+      "thumbnail": "https://embassysprings.com/blogs/5-educative-board-games-for-your-kid/images/banner.jpg",
+      "image": "https://embassysprings.com/blogs/5-educative-board-games-for-your-kid/images/banner.jpg",
+      "description": "asdfas",
+      "min": "1",
+      "max": "4",
+      "recommended": "2",
+      "best": "3",
+      "alternateNames": [
+        "Test1",
+        "Test2"
+      ],
+      "minAge": "14",
+      "userId": 1,
+      "id": 287
+    },
+    {
+      "name": "sadsa",
+      "thumbnail": "https://embassysprings.com/blogs/5-educative-board-games-for-your-kid/images/banner.jpg",
+      "image": "https://embassysprings.com/blogs/5-educative-board-games-for-your-kid/images/banner.jpg",
+      "description": "asdsa",
+      "min": "12",
+      "max": "3",
+      "recommended": "1",
+      "best": "4",
+      "alternateNames": [
+        "Fadfa"
+      ],
+      "minAge": "1",
+      "userId": 1,
+      "id": 288
     }
   ]
 }

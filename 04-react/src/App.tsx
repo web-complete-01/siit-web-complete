@@ -10,6 +10,7 @@ import { List } from './features/Boardgames';
 import { Details } from './features/Boardgames/Details';
 import { ToastContainer } from 'react-toastify';
 import { AddGame } from './features/Boardgames/AddGame';
+import { EditGame } from './features/Boardgames/EditGame';
 
 import './App.css';
 import './Forms.css';
@@ -30,6 +31,7 @@ export function App() {
           <Route path="todos" element={<Todos />} />
           <Route path="boardgames" element={<List />} />
           <Route path="boardgames/:id" element={<Details />} />
+          <Route path="boardgames/:id/edit" element={<EditGame />} />
           <Route path="boardgames/add" element={<AddGame />} />
           <Route path="*" element={<h1>404 Not Found</h1>} />
         </Routes>
